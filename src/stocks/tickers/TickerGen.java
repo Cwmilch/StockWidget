@@ -1,4 +1,4 @@
-package tickers;
+package stocks.tickers;
 
 public class TickerGen {
 

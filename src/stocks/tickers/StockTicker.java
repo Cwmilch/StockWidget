@@ -1,4 +1,4 @@
-package tickers;
+package stocks.tickers;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -15,10 +15,9 @@ public class StockTicker implements Comparable {
     private String ticker;
     private String company;
     private URL logoURL;
-    private boolean hasLogo = true;
 
 
-    StockTicker(String ticker, String company, URL logoURL) {
+    public StockTicker(String ticker, String company, URL logoURL) {
         this.ticker = ticker;
         this.company = company;
         this.logoURL = logoURL;
@@ -32,8 +31,8 @@ public class StockTicker implements Comparable {
         return company;
     }
 
-    public boolean hasLogo() {
-        return hasLogo;
+    public URL getLogoURL() {
+        return logoURL;
     }
 
     public List<StockTicker> getTickers() {
@@ -56,9 +55,6 @@ public class StockTicker implements Comparable {
 
     public static void sortTickers() {
         Collections.sort(tickers);
-        for (StockTicker s : tickers) {
-            System.out.println(s);
-        }
     }
 
     @Override
