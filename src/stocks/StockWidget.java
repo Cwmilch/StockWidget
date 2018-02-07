@@ -4,7 +4,6 @@ import components.StockHistoryPanel;
 import components.TickerInfoPanel;
 import components.buttons.TimeButton;
 import stocks.graphs.GraphOverlay;
-import stocks.graphs.GraphPoint;
 import stocks.tickers.StockTicker;
 import stocks.tickers.TickerGen;
 
@@ -45,9 +44,6 @@ public class StockWidget {
         widget.setResizable(false);
         widget.setBackground(new Color(0x636E72));
         StockHistoryPanel p = new StockHistoryPanel();
-        GraphPoint g = new GraphPoint("", 1d, 1d, 1d, 25, 1, 1);
-        GraphPoint.addGraphPoint(g);
-        p.add(g);
         JLayer<JComponent> overlay = new JLayer<>(p, layerUI);
         widget.add(overlay, BorderLayout.CENTER);
 
