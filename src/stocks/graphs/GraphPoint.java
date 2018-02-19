@@ -1,6 +1,5 @@
 package stocks.graphs;
 
-import components.StockHistoryPanel;
 import stocks.StockWidget;
 
 import javax.swing.*;
@@ -59,7 +58,7 @@ public class GraphPoint extends JComponent implements Comparable {
      * @return the GraphPoint if found, otherwise null
      */
     private static int findGraphPoint(int max, int min, int xLoc) {
-        int offset = StockHistoryPanel.getOffset();
+        int offset = StockWidget.getStockPanel().getOffset();
         if (graphPoints.size() <= 1) {
             if (graphPoints.size() == 0) {
                 return -1;
@@ -109,7 +108,7 @@ public class GraphPoint extends JComponent implements Comparable {
     public static void paintLines(Graphics g) {
         StockWidget.getOverlay().resetTick();
         if (currentIndex != 0) {
-            int offset = StockHistoryPanel.getOffset();
+            int offset = StockWidget.getStockPanel().getOffset();
             Graphics2D graphics = (Graphics2D) g;
             totalChange = graphPoints.get(currentIndex - 1).price - graphPoints.get(0).price;
             graphColor = totalChange > 0 ? Color.GREEN : Color.RED;
@@ -128,7 +127,7 @@ public class GraphPoint extends JComponent implements Comparable {
      */
     void repaintLines(Graphics2D g) {
         g.setColor(graphColor);
-        int offset = StockHistoryPanel.getOffset();
+        int offset = StockWidget.getStockPanel().getOffset();
         int index = findGraphPoint(-1, -1, getX() + offset);
 
         if (index == currentIndex - 1) {
@@ -151,7 +150,7 @@ public class GraphPoint extends JComponent implements Comparable {
      * Return whether or not a given location along the x-axis is within the radius of the GraphPoint.
      */
     private boolean isInXRange(int xLoc) {
-        int offset = StockHistoryPanel.getOffset();
+        int offset = StockWidget.getStockPanel().getOffset();
         return (xLoc - offset) <= (x + boundRange) && (xLoc - offset) >= (x - boundRange);
     }
 

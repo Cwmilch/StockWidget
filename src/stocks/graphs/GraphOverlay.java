@@ -67,7 +67,7 @@ public class GraphOverlay extends LayerUI<JComponent> {
     private void clearLine(Graphics2D g) {
         if (lastPoint != null) {
             GraphPoint point = lastPoint;
-            int x = point.getX() + StockHistoryPanel.getOffset();
+            int x = point.getX() + StockWidget.getStockPanel().getOffset();
             if (x > image.getWidth()) {
                 return;
             }
@@ -91,7 +91,7 @@ public class GraphOverlay extends LayerUI<JComponent> {
      * @param x x-position of the line
      */
     private void drawLine(int x) {
-        int offsetX = x + StockHistoryPanel.getOffset();
+        int offsetX = x + StockWidget.getStockPanel().getOffset();
         for (int i = 0; i < image.getHeight(); i++) {
             image.setRGB(offsetX, i, Color.RED.getRGB());
         }

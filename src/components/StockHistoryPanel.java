@@ -18,14 +18,9 @@ import java.util.Iterator;
 
 public class StockHistoryPanel extends JPanel {
 
-    private static int xOffset;
-    private static boolean set;
+    private int xOffset = 0;
+    private boolean set = false;
     private StockTicker stock;
-
-    static {
-        xOffset = 0;
-        set = false;
-    }
 
     public StockHistoryPanel() {
         stock = StockTicker.getTickers().get(0);
@@ -155,7 +150,7 @@ public class StockHistoryPanel extends JPanel {
         GraphPoint.paintLines(g);
     }
 
-    public static int getOffset() {
+    public int getOffset() {
         return xOffset;
     }
 
