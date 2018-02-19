@@ -1,7 +1,6 @@
 package utils;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
@@ -12,7 +11,13 @@ import java.net.URL;
 
 public class HTTPUtils {
 
-    public static String getRequest(String url) {
+    /**
+     * Return the data from a GET request as a JsonElement
+     *
+     * @param url the url to request
+     * @return the data as a JsonElement
+     */
+    public static JsonElement getRequest(String url) {
         StringBuilder json = new StringBuilder();
         try {
             URL request = new URL(url);
@@ -24,10 +29,9 @@ public class HTTPUtils {
                 json.append(next);
             }
             reader.close();
-            GsonBuilder builder = new GsonBuilder();
-            Gson gson = builder.setPrettyPrinting().create();
+
             JsonParser jsonParser = new JsonParser();
-            return gson.toJson(jsonParser.parse(json.toString()));
+            return jsonParser.parse(json.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

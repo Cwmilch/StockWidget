@@ -2,7 +2,11 @@ package stocks.tickers;
 
 public class TickerGen {
 
-    private static boolean tickersSet = false;
+    private static boolean tickersSet;
+
+    static {
+        tickersSet = false;
+    }
 
     public static void loadTickers() {
         if (!tickersSet) {

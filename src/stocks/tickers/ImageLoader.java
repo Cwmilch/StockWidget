@@ -1,4 +1,4 @@
-package utils;
+package stocks.tickers;
 
 import components.TickerInfoPanel;
 
@@ -7,6 +7,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Thread used to download StockTicker images
+ */
 public class ImageLoader implements Runnable {
 
     private URL url;

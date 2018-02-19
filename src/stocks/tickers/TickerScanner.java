@@ -4,12 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.net.URL;
 import java.util.Scanner;
 
 public class TickerScanner implements Runnable {
 
-    private String text = "";
+    private String text;
     private boolean nasdaq;
 
     TickerScanner(String file) {
@@ -32,9 +31,7 @@ public class TickerScanner implements Runnable {
                 String beginCompany = line.substring(split + 1);
                 String company = beginCompany.substring(0, beginCompany.indexOf("|"));
 
-                URL url = new URL("https://storage.googleapis.com/iex/api/logos/" + ticker + ".png");
-
-                StockTicker.addTicker(new StockTicker(ticker, company, url));
+                StockTicker.addTicker(new StockTicker(ticker, company));
             }
         } catch (IOException e) {
             e.printStackTrace();
