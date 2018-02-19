@@ -15,13 +15,18 @@ import java.awt.*;
 
 public class StockWidget {
 
-    private static int width = 0;
-    private static int height = 0;
+    private static int width;
+    private static int height;
 
     private static JFrame widget;
     private static GraphOverlay layerUI;
     private static StockHistoryPanel panel;
     private static TickerInfoPanel infoPanel;
+
+    static {
+        width = 0;
+        height = 0;
+    }
 
     public static void main(String[] args) {
         TickerGen.loadTickers();
@@ -86,7 +91,6 @@ public class StockWidget {
 
     /**
      * Initialize the search bar.
-     *
      * @param panel the JPanel to add it to
      */
     private static void addSearchBar(JPanel panel) {
