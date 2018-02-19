@@ -13,15 +13,18 @@ public class GraphPoint extends JComponent implements Comparable {
     private static List<GraphPoint> graphPoints;
     private static int currentIndex;
     private static Color graphColor;
+
     private String date;
     private double price, change, changePct;
-    private static double totalChange;
     private int boundRange, x, y;
+    private static double totalChange;
 
     static {
         graphPoints = new ArrayList<>();
         currentIndex = 0;
         graphColor = Color.GREEN;
+
+        totalChange = 0d;
     }
 
     public GraphPoint(String date, double closePrice, double change, double changePct, int boundRange, int x, int y) {
@@ -104,7 +107,7 @@ public class GraphPoint extends JComponent implements Comparable {
      * Draw the lines connecting all GraphPoints together.
      */
     public static void paintLines(Graphics g) {
-        GraphOverlay.resetTick();
+        StockWidget.getOverlay().resetTick();
         if (currentIndex != 0) {
             int offset = StockHistoryPanel.getOffset();
             Graphics2D graphics = (Graphics2D) g;

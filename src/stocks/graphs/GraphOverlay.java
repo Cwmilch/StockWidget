@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
 
 public class GraphOverlay extends LayerUI<JComponent> {
 
-    private static BufferedImage image;
-    private static Graphics2D imgGraphics;
+    private BufferedImage image;
+    private Graphics2D imgGraphics;
     private GraphPoint lastPoint = null;
 
     //Whether or not the GraphOverlay has been painted since the StockHistoryPanel's time interval changed
@@ -51,7 +51,7 @@ public class GraphOverlay extends LayerUI<JComponent> {
     /**
      * Reset the BufferedImage, called when the time interval is changed on the StockHistoryPanel.
      */
-    public static void clearImage() {
+    public void clearImage() {
         if (image != null) {
             for (int i = 0; i < image.getWidth(); i++) {
                 for (int j = 0; j < image.getHeight(); j++) {
@@ -97,7 +97,7 @@ public class GraphOverlay extends LayerUI<JComponent> {
         }
     }
 
-    static void resetTick() {
+    void resetTick() {
         firstTick = true;
     }
 }

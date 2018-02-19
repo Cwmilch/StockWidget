@@ -3,7 +3,6 @@ package components;
 import components.buttons.TimeButton;
 import components.buttons.TimeButtonPanel;
 import stocks.StockWidget;
-import stocks.graphs.GraphOverlay;
 import stocks.graphs.GraphPoint;
 
 import javax.swing.*;
@@ -65,7 +64,7 @@ public class TimeEntryBar extends JTextField {
                             if (pos == 10) {
                                 //Set time to user entered date
                                 TimeButton.getPanel().deselectAll();
-                                GraphOverlay.clearImage();
+                                StockWidget.getOverlay().clearImage();
                                 GraphPoint.resetPoints();
                                 StockWidget.getStockPanel().setTimeInterval(date);
                                 transferFocusBackward();
