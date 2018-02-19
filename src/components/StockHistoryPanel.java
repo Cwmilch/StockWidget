@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import components.buttons.TimeButton;
 import stocks.StockWidget;
-import stocks.graphs.GraphOverlay;
 import stocks.graphs.GraphPoint;
 import stocks.tickers.StockTicker;
 import utils.HTTPUtils;
@@ -19,9 +18,14 @@ import java.util.Iterator;
 
 public class StockHistoryPanel extends JPanel {
 
-    private static int xOffset = 0;
-    private static boolean set = false;
-    private static StockTicker stock = null;
+    private static int xOffset;
+    private static boolean set;
+    private StockTicker stock;
+
+    static {
+        xOffset = 0;
+        set = false;
+    }
 
     public StockHistoryPanel() {
         stock = StockTicker.getTickers().get(0);
@@ -53,7 +57,7 @@ public class StockHistoryPanel extends JPanel {
             setTimeInterval("1D");
         }
         set = false;
-        GraphOverlay.clearImage();
+        StockWidget.getOverlay().clearImage();
         GraphPoint.resetPoints();
         boolean day = time.equals("1D") || time.contains("/");
 
@@ -84,7 +88,7 @@ public class StockHistoryPanel extends JPanel {
             final String s = time;
             SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null,
                     "Unable to find data for " + s + ".", "Error", JOptionPane.ERROR_MESSAGE));
-            GraphOverlay.clearImage();
+            StockWidget.getOverlay().clearImage();
             GraphPoint.resetPoints();
             TimeButton.getPanel().pressFirst();
             repaint();

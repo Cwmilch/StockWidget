@@ -9,13 +9,19 @@ import java.awt.event.ActionListener;
 
 public class TimeButton extends JButton {
 
-    private static int x_offset = 0;
-    private static int y_offset = 0;
+    private static int x_offset;
+    private static int y_offset;
 
     private static TimeButton[] timeButtons = {null, null, null, null, null, null, null, null};
-    private static TimeButtonPanel panel = new TimeButtonPanel();
+    private static TimeButtonPanel panel;
     private boolean pressed;
     private static int radius;
+
+    static {
+        x_offset = 0;
+        y_offset = 0;
+        panel = new TimeButtonPanel();
+    }
 
     public TimeButton(String time, int x, int y) {
         pressed = time.equals("1D");
@@ -98,13 +104,9 @@ public class TimeButton extends JButton {
      * Calibrate the offset between each button based on screen dimensions.
      */
     public static void setOffsets() {
-        if (x_offset == 0) {
-            x_offset = StockWidget.getWidth() / 10;
-        }
+        x_offset = StockWidget.getWidth() / 10;
 
-        if (y_offset == 0) {
-            y_offset = (int) (StockWidget.getHeight() * 0.8);
-        }
+        y_offset = (int) (StockWidget.getHeight() * 0.8);
     }
 
     private void setLoc(int x, int y) {
