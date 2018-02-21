@@ -10,7 +10,6 @@ import java.util.List;
 public class GraphPoint extends JComponent implements Comparable {
 
     private static List<GraphPoint> graphPoints;
-    private static int currentIndex;
     private static Color graphColor;
 
     private String date;
@@ -20,7 +19,6 @@ public class GraphPoint extends JComponent implements Comparable {
 
     static {
         graphPoints = new ArrayList<>();
-        currentIndex = 0;
         graphColor = Color.GREEN;
 
         totalChange = 0d;
@@ -38,17 +36,10 @@ public class GraphPoint extends JComponent implements Comparable {
 
     public static void resetPoints() {
         graphPoints = new ArrayList<>();
-        currentIndex = 0;
     }
 
     public static void addGraphPoint(GraphPoint g) {
-        if (currentIndex < graphPoints.size()) {
-            graphPoints.set(currentIndex, g);
-        } else {
-            graphPoints.add(g);
-        }
-
-        currentIndex++;
+        graphPoints.add(g);
         StockWidget.getStockPanel().add(g);
     }
 
@@ -69,7 +60,7 @@ public class GraphPoint extends JComponent implements Comparable {
         }
 
         min = min == -1 ? 0 : min; //Set min to zero if it's the first iteration
-        max = max == -1 ? currentIndex : max; //Set max to the current index if it's the first iteration
+        max = max == -1 ? graphPoints.size() : max; //Set max to the current index if it's the first iteration
 
         if (max == min) {
             return -1;
@@ -106,14 +97,14 @@ public class GraphPoint extends JComponent implements Comparable {
      * Draw the lines connecting all GraphPoints together.
      */
     public static void paintLines(Graphics g) {
+        int size = graphPoints.size();
         StockWidget.getOverlay().resetTick();
-        if (currentIndex != 0) {
+        if (size != 0) {
             int offset = StockWidget.getStockPanel().getOffset();
             Graphics2D graphics = (Graphics2D) g;
-            totalChange = graphPoints.get(currentIndex - 1).price - graphPoints.get(0).price;
             graphColor = totalChange > 0 ? Color.GREEN : Color.RED;
 
-            for (int i = 0; i < currentIndex - 1; i++) {
+            for (int i = 0; i < size - 1; i++) {
                 graphics.setColor(graphColor);
                 GraphPoint from = graphPoints.get(i);
                 GraphPoint to = graphPoints.get(i + 1);
@@ -130,7 +121,7 @@ public class GraphPoint extends JComponent implements Comparable {
         int offset = StockWidget.getStockPanel().getOffset();
         int index = findGraphPoint(-1, -1, getX() + offset);
 
-        if (index == currentIndex - 1) {
+        if (index == graphPoints.size() - 1) {
             GraphPoint to = graphPoints.get(index - 1);
             g.drawLine(this.x + offset, this.y, to.x + offset, to.y);
         } else if (index == 0) {
@@ -158,7 +149,7 @@ public class GraphPoint extends JComponent implements Comparable {
      * Return the last GraphPoint added to an array, null if none have been added.
      */
     public static GraphPoint getLast() {
-        return currentIndex > 0 ? graphPoints.get(graphPoints.size() - 1) : null;
+        return graphPoints.size() > 0 ? graphPoints.get(graphPoints.size() - 1) : null;
     }
 
     /**
@@ -194,7 +185,8 @@ public class GraphPoint extends JComponent implements Comparable {
         return y;
     }
 
-    public double getTotalChange() {
+    public static double getTotalChange() {
+        totalChange = graphPoints.get(graphPoints.size() - 1).price - graphPoints.get(0).price;
         return totalChange;
     }
 
