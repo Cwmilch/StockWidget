@@ -68,8 +68,8 @@ public class GraphOverlay extends LayerUI<JComponent> {
         if (lastPoint != null) {
             GraphPoint point = lastPoint;
             int x = point.getX() + StockWidget.getStockPanel().getOffset();
-            if (x > image.getWidth()) {
-                return;
+            if (x >= image.getWidth()) {
+                x = image.getWidth() - 1;
             }
             int y = point.getY();
             int rgb = new Color(0xEEEEEE, false).getRGB(); //Default background color
@@ -92,6 +92,11 @@ public class GraphOverlay extends LayerUI<JComponent> {
      */
     private void drawLine(int x) {
         int offsetX = x + StockWidget.getStockPanel().getOffset();
+        System.out.println("Offset: " + offsetX + " W: " + image.getWidth());
+        if (offsetX >= image.getWidth()) {
+            offsetX = image.getWidth() - 1;
+        }
+        System.out.println("New: " + offsetX);
         for (int i = 0; i < image.getHeight(); i++) {
             image.setRGB(offsetX, i, Color.RED.getRGB());
         }

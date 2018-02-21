@@ -122,7 +122,11 @@ public class StockHistoryPanel extends JPanel {
                 changePct = object.get("changePercent").getAsDouble();
             } else {
                 change = price - last;
-                changePct = (price / last) * (change > 0 ? 1 : -1);
+                if (change != 0) {
+                    changePct = (price / last) * (change > 0 ? 1 : -1);
+                } else {
+                    changePct = 0d;
+                }
                 last = price;
             }
 
@@ -134,9 +138,9 @@ public class StockHistoryPanel extends JPanel {
         }
 
         xOffset = size > 1000 ? 0 : (StockWidget.getWidth() - GraphPoint.getLast().getX()) / 2;
+        StockWidget.getInfoPanel().passPointInfo(GraphPoint.getGraphPoint(0));
         repaint();
         revalidate();
-        StockWidget.getInfoPanel().passPointInfo(GraphPoint.getGraphPoint(0));
         set = true;
     }
 

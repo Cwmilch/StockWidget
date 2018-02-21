@@ -48,14 +48,15 @@ public class TickerInfoPanel extends JPanel {
         g.drawString(ticker.getCompany(), 90, 25);
 
         if (info.size() > 0) {
-            g.setColor(Double.parseDouble(info.get(0)) > 0 ? Color.GREEN : Color.RED);
-            g.drawString("Net Change Over Time: " + format(info.get(0)) + "%", 90, 40);
+            boolean posChange = Double.parseDouble(info.get(0)) > 0;
+            g.setColor(posChange ? Color.GREEN.darker() : Color.RED);
+            g.drawString("Net Change Over Time: " + (posChange ? "+" : "") + format(info.get(0)) + "%", 90, 40);
 
             String datePrefix = info.get(1).contains("-") ? "Date: " : "Time: ";
             g.drawString(datePrefix + info.get(1), 90, 55);
 
             g.drawString("Price: " + format(info.get(2)), 90, 70);
-            g.drawString("Change: " + format(info.get(3)) + "(" + format(info.get(4)) + "%)", 200, 70);
+            g.drawString("Change: " + format(info.get(3)) + " (" + format(info.get(4)) + "%)", 200, 70);
         }
 
         if (image != null) {
@@ -72,7 +73,7 @@ public class TickerInfoPanel extends JPanel {
     public void passPointInfo(GraphPoint g) {
         info = new ArrayList<>(); //Clear current ArrayList
         if (g != null) {
-            info.add(Double.toString(g.getTotalChange()));
+            info.add(Double.toString(GraphPoint.getTotalChange()));
             info.add(g.getDate());
             info.add(Double.toString(g.getPrice()));
             info.add(Double.toString(g.getChange()));
@@ -100,5 +101,6 @@ public class TickerInfoPanel extends JPanel {
 
         Thread imageThread = new Thread(new ImageLoader(ticker.getLogoURL(), this));
         imageThread.start();
+        repaint();
     }
 }
